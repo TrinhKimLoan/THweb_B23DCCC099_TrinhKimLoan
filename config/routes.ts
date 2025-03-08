@@ -67,6 +67,23 @@
 			{ path: '/study-tracker/goals', name: '🎯 Mục tiêu Học tập', component: './StudyTracker/Goals' },
 		  ],
 		},
+		{
+			path: '/keo-bua-bao',
+			name: 'Play Game',
+			component: "@/pages/keo-bua-bao/index",
+			icon: 'HomeOutlined',
+		},
+		{
+            path: '/de-tu-luan',
+            name: 'Câu hỏi tự luận',
+            routes: [
+              { path: '/de-tu-luan/khoi-kien-thuc', name: 'Các khối kiến thức', component: './ManageQuestion/KhoiKienThuc' },
+              { path: '/de-tu-luan/mon-hoc', name: 'Các môn học', component: './ManageQuestion/MonHoc' },
+              { path: '/de-tu-luan/cau-hoi', name: 'Các câu hỏi', component: './ManageQuestion/CauHoi' },
+              { path: '/de-tu-luan/de-thi', name: 'Đề thi', component: './ManageQuestion/DeThi' },
+            ],
+          },
+
 	  
 
 	// DANH MUC HE THONG
