@@ -84,6 +84,41 @@
             ],
           },
 
+		  {
+			path: '/dichvu',
+			name: 'Management',
+			icon: 'AppstoreOutlined',
+			routes: [
+			  {
+				path: 'booking',
+				name: 'Khách hàng',
+				component: './Dichvu/Booking/index',
+			  },
+			],
+		  },
+		  {
+			path: '/management',
+			name: 'Management',
+			routes: [
+			  {
+				path: '/management/admin',
+				name: 'Admin',
+				routes: [
+				  {
+					path: '/management/admin/employees',
+					name: 'Employee Management',
+					component: './management/admin/employees',
+					icon: 'UserOutlined',
+				  },
+				  // khác
+				],
+			  },
+			],
+		},
+
+		
+
+
 	  
 
 	// DANH MUC HE THONG
