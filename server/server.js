@@ -19,10 +19,6 @@ app.use('/appointments', appointmentRoutes);
 const reviewRoutes = require('./routes/reviewRoutes');
 app.use('/reviews', reviewRoutes);
 
-const statsRoutes = require("./routes/statsRoutes");
-app.use("/stats", statsRoutes);
-
-
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server chạy tại http://localhost:${PORT}`);

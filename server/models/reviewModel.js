@@ -1,43 +1,35 @@
 const db = require('../config/db');
 
-// Lấy danh sách tất cả đánh giá
 const getAllReviews = async () => {
-  const sql = `
-    SELECT r.id, r.rating, r.comment, r.employee_response, r.created_at,
-           u.name AS customer_name, e.id AS employee_id, e.bio AS employee_bio
-    FROM reviews r
-    JOIN appointments a ON r.appointment_id = a.id
-    JOIN users u ON a.customer_id = u.id
-    JOIN employees e ON a.employee_id = e.id
-  `;
-  const [reviews] = await db.query(sql);
-  return reviews;
+  const [rows] = await db.query('SELECT * FROM reviews');
+  return rows;
 };
 
-// Thêm đánh giá mới
-const addReview = async (appointment_id, rating, comment) => {
-  const sql = `
-    INSERT INTO reviews (appointment_id, rating, comment, created_at)
-    VALUES (?, ?, ?, NOW())
-  `;
-  const [result] = await db.query(sql, [appointment_id, rating, comment]);
-  return { id: result.insertId, appointment_id, rating, comment };
+const addReview = async ({ appointment_id, rating, comment }) => {
+  await db.query('INSERT INTO reviews (appointment_id, rating, comment, created_at) VALUES (?, ?, ?, NOW())', [appointment_id, rating, comment]);
 };
 
-// Cập nhật đánh giá
-const updateReview = async (id, rating, comment, employee_response) => {
-  const sql = `
-    UPDATE reviews SET rating = ?, comment = ?, employee_response = ? WHERE id = ?
-  `;
-  const [result] = await db.query(sql, [rating, comment, employee_response, id]);
-  return result.affectedRows > 0;
+const updateReview = async (id, { rating, comment, employee_response }) => {
+  await db.query('UPDATE reviews SET rating = ?, comment = ?, employee_response = ? WHERE id = ?', [rating, comment, employee_response, id]);
 };
 
-// Xóa đánh giá
 const deleteReview = async (id) => {
-  const sql = `DELETE FROM reviews WHERE id = ?`;
-  const [result] = await db.query(sql, [id]);
-  return result.affectedRows > 0;
+  await db.query('DELETE FROM reviews WHERE id = ?', [id]);
+};
+
+// API mới: lấy review theo nhân viên
+const getReviewsByEmployee = async (employeeId) => {
+  const [rows] = await db.query(
+    `SELECT r.* FROM reviews r
+     JOIN appointments a ON r.appointment_id = a.id
+     WHERE a.employee_id = ?`, [employeeId]
+  );
+  return rows;
+};
+
+// API mới: chỉ cập nhật employee_response
+const updateEmployeeResponse = async (id, response) => {
+  await db.query('UPDATE reviews SET employee_response = ? WHERE id = ?', [response, id]);
 };
 
 module.exports = {
@@ -45,4 +37,6 @@ module.exports = {
   addReview,
   updateReview,
   deleteReview,
+  getReviewsByEmployee,
+  updateEmployeeResponse
 };

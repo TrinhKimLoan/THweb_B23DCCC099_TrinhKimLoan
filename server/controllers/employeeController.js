@@ -89,17 +89,17 @@
 //   }
 // };
 
-const Employee = require("../models/employeeModel");
+const Employee = require('../models/employeeModel');
 
 // Lấy danh sách nhân viên
 exports.getAllEmployees = async (req, res) => {
   try {
-    console.log("📢 API GET /employees được gọi");
+    console.log('📢 API GET /employees được gọi');
     const employees = await Employee.getAllEmployees();
     res.json(employees);
   } catch (error) {
-    console.error("❌ Lỗi khi lấy danh sách nhân viên:", error);
-    res.status(500).json({ message: "Lỗi server", error });
+    console.error('❌ Lỗi khi lấy danh sách nhân viên:', error);
+    res.status(500).json({ message: 'Lỗi server', error });
   }
 };
 
@@ -108,14 +108,14 @@ exports.addEmployee = async (req, res) => {
   try {
     const { name, email, password, bio, work_schedule, max_appointments_per_day } = req.body;
     if (!name || !email || !password || !bio || !work_schedule || !max_appointments_per_day) {
-      return res.status(400).json({ message: "Vui lòng điền đầy đủ thông tin nhân viên" });
+      return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin nhân viên' });
     }
 
     const newEmployee = await Employee.addEmployee(name, email, password, bio, work_schedule, max_appointments_per_day);
-    res.status(201).json({ message: "Thêm nhân viên thành công!", employee: newEmployee });
+    res.status(201).json({ message: 'Thêm nhân viên thành công!', employee: newEmployee });
   } catch (error) {
-    console.error("❌ Lỗi khi thêm nhân viên:", error);
-    res.status(500).json({ message: "Lỗi server", error });
+    console.error('❌ Lỗi khi thêm nhân viên:', error);
+    res.status(500).json({ message: 'Lỗi server', error });
   }
 };
 
@@ -127,13 +127,13 @@ exports.updateEmployee = async (req, res) => {
 
     const updated = await Employee.updateEmployee(id, bio, work_schedule, max_appointments_per_day);
     if (!updated) {
-      return res.status(404).json({ message: "Không tìm thấy nhân viên" });
+      return res.status(404).json({ message: 'Không tìm thấy nhân viên' });
     }
 
-    res.json({ message: "Cập nhật nhân viên thành công" });
+    res.json({ message: 'Cập nhật nhân viên thành công' });
   } catch (error) {
-    console.error("❌ Lỗi khi cập nhật nhân viên:", error);
-    res.status(500).json({ message: "Lỗi server", error });
+    console.error('❌ Lỗi khi cập nhật nhân viên:', error);
+    res.status(500).json({ message: 'Lỗi server', error });
   }
 };
 
@@ -143,12 +143,12 @@ exports.deleteEmployee = async (req, res) => {
     const { id } = req.params;
     const deleted = await Employee.deleteEmployee(id);
     if (!deleted) {
-      return res.status(404).json({ message: "Không tìm thấy nhân viên" });
+      return res.status(404).json({ message: 'Không tìm thấy nhân viên' });
     }
 
-    res.json({ message: "Nhân viên đã bị xóa" });
+    res.json({ message: 'Nhân viên đã bị xóa' });
   } catch (error) {
-    console.error("❌ Lỗi khi xóa nhân viên:", error);
-    res.status(500).json({ message: "Lỗi server", error });
+    console.error('❌ Lỗi khi xóa nhân viên:', error);
+    res.status(500).json({ message: 'Lỗi server', error });
   }
 };

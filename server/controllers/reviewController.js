@@ -62,3 +62,25 @@ exports.deleteReview = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server', error });
   }
 };
+// API mới: Lấy review theo nhân viên
+exports.getReviewsByEmployee = async (req, res) => {
+  try {
+    const employeeId = req.params.id;
+    const reviews = await Review.getReviewsByEmployee(employeeId);
+    res.json(reviews);
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi server', error: err });
+  }
+};
+
+// API mới: Nhân viên phản hồi review
+exports.respondToReview = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { employee_response } = req.body;
+    await Review.updateEmployeeResponse(id, employee_response);
+    res.json({ message: 'Đã phản hồi đánh giá' });
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi server', error: err });
+  }
+};

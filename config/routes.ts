@@ -84,36 +84,46 @@
             ],
           },
 
-		  {
-			path: '/dichvu',
-			name: 'Management',
-			icon: 'AppstoreOutlined',
-			routes: [
-			  {
-				path: 'booking',
-				name: 'Khách hàng',
-				component: './Dichvu/Booking/index',
-			  },
-			],
-		  },
+		  
 		  {
 			path: '/management',
-			name: 'Management',
+			name: 'BT buổi 3',
 			routes: [
-			  {
-				path: '/management/admin',
-				name: 'Admin',
-				routes: [
-				  {
+				{
 					path: '/management/admin/employees',
 					name: 'Employee Management',
 					component: './management/admin/employees',
-					icon: 'UserOutlined',
 				  },
-				  // khác
-				],
-			  },
-			],
+				{
+				  path: '/management/admin/services',
+				  name: 'Service Management',
+				  component: './management/admin/services',
+				},
+				{
+					path: '/management/admin/stats',
+					name: 'Thống kê',
+					component: './management/admin/stats/ReportPage',
+				  },				
+				// khác
+				{
+					path: '/management/app-service/booking', name: 'Đặt lịch', component: './AppService/Booking' ,
+				  },
+				  {
+					path: '/management/app-service/staff', name: 'Lịch hẹn', component: './AppService/Staff/Index' ,
+				  },
+				  {
+					path: '/management/reviews/customer',
+					name: 'Khách hàng đánh giá',
+					component: './management/reviews/CustomerReviewsPage',
+				  },
+				  {
+					path: '/management/reviews/nhanvien',
+					name: 'Nhân viên phản hồi',
+					component: './management/reviews/EmployeeReviewsPage',
+				  }
+			  ],
+  
+  
 		},
 
 		
